@@ -5,13 +5,16 @@ const apiHostUrl = process.env.API_HOST_URL ? process.env.API_HOST_URL : "https:
  * 查询抽奖奖品列表
  * @param strategyId 策略ID
  */
-export const queryRaffleAwardList = (strategyId: number) => {
+export const queryRaffleAwardList = (strategyId?: number) => {
     try {
-        return fetch(`${apiHostUrl}/api/v1/raffle/query_raffle_award_list?apipost_id=1bdf4d84781001&strategyId=${strategyId}`, {
-            method: 'get',
+        return fetch(`${apiHostUrl}/api/v1/raffle/query_raffle_award_list`, {
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                strategyId: strategyId
+            })
         });
     } catch (error) {
         return fetch("{\n" +
@@ -22,13 +25,30 @@ export const queryRaffleAwardList = (strategyId: number) => {
     }
 }
 
-export const randomRaffle = (strategyId: number) => {
+/**
+ * 随机抽奖接口
+ * @param strategyId 策略ID
+ *
+ * {
+ * 	"code": "0000",
+ * 	"info": "调用成功",
+ * 	"data": {
+ * 	    "awardIndex": 1, // awardIndex 获得的是列表中第几个奖品，方便测试使用
+ * 		"awardId": 535,
+ * 		"awardTitle": "一部手机"
+ * 	}
+ * }
+ */
+export const randomRaffle = (strategyId?: number) => {
     try {
-        return fetch(`${apiHostUrl}/api/v1/raffle/random_raffle?apipost_id=1bdf4d84781001&strategyId=${strategyId}`, {
-            method: 'get',
+        return fetch(`${apiHostUrl}/api/v1/raffle/random_raffle`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
-            }
+            },
+            body: JSON.stringify({
+                strategyId: strategyId
+            })
         })
     } catch (error) {
         return fetch("{\n" +
@@ -37,4 +57,17 @@ export const randomRaffle = (strategyId: number) => {
             "    \"data\": [\n" +
             "}");
     }
+}
+
+/**
+ * 装配抽奖
+ * @param strategyId
+ */
+export const strategyArmory = (strategyId?: number) => {
+    return fetch(`${apiHostUrl}/api/v1/raffle/strategy_armory?strategyId=${strategyId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
 }
