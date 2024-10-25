@@ -60,6 +60,31 @@ export const randomRaffle = (strategyId?: number) => {
 }
 
 /**
+ * 十连抽
+ * @param strategyId 策略ID
+ * @returns 
+ */
+export const tenTimesRaffle = (strategyId?: number) => {
+    try {
+        return fetch(`${apiHostUrl}/api/v1/raffle/ten_times_raffle`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({
+                strategyId: strategyId
+            })
+        })
+    } catch (error) {
+        return fetch("{\n" +
+            "    \"code\": \"0001\",\n" +
+            "    \"info\": \"调用失败\",\n" +
+            "    \"data\": [\n" +
+            "}");
+    }
+}
+
+/**
  * 装配抽奖
  * @param strategyId
  */

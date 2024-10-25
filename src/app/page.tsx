@@ -4,6 +4,7 @@ import { LuckyWheelPage } from "@/app/pages/lucky/lucky-wheel-page";
 import { LuckyGridPage } from "@/app/pages/lucky/lucky-grid-page";
 import dynamic from "next/dynamic";
 const StrategyArmoryButton = dynamic(async () => (await import("./components/StrategyArmory")).StrategyArmory)
+const TenTimesRaffleButton = dynamic(async () => (await import("./components/TenTimesRaffle")).TenTimesRaffle)
 
 export default function Home() {
 
@@ -26,6 +27,8 @@ export default function Home() {
           <LuckyGridPage />
         </div>
       </div>
+
+      <TenTimesRaffleButton />
 
       {/* 底部文案 */}
       <footer className="text-gray-600 text-center my-8">
